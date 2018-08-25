@@ -1,0 +1,13 @@
+html,
+body {
+    /* font-family: 'Open Sans'; */
+}
+.jumbotron {
+    background: linear-gradient(#006666, #ffff66);
+}
+.books-card img{
+    height: 100px;
+    width: auto;
+}
+
+/* page section titles */
