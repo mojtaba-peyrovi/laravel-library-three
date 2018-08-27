@@ -40,22 +40,29 @@
     width: 70%;
   }
 
-.books-row {
-    background-color: rgb(242, 242, 242);
-    border-radius: 5px;
-    padding-bottom: 20px;
-    box-shadow: -11px 19px 38px -18px rgba(122,116,122,0.75);
-}
+
 
 .edit-btn {
     font-size: 12px;
 }
 .user-img {
     border-radius: 6px;
-    box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
     position: relative;
+    top:-40px;
 }
-
+.show-left,
+.show-right,
+.books-row{
+    border-radius: 6px;
+    box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
+}
+.show-left{
+    height: 450px;
+}
+.show-title{
+    font-family: 'Lobster', cursive;
+    font-size: 35px;
+}
 
 </style>
 @endsection
@@ -72,52 +79,56 @@
         <li class="breadcrumb-item active">{{ $user->name }}</li>
     </ol>
     <div class="container mt-4">
-        <!--Jumbotron-->
-            <div class="jumbotron">
-                <h1 class="h1-reponsive mb-3 blue-text"><strong class="text-white">
-                    <i class="fa fa-user"></i>
-                    {{ $user->name }}</strong></h1>
-                <p class="lead text-white">
-                    Here is your profile!
-                </p>
-                <hr class="my-4">
-            </div>
 
-        <!--Jumbotron-->
 
         <!-- personal info -->
-        <div class="section-title">
-            Personal Info
-        </div>
-        <div class="row books-row p-2">
-            <div class="col-md-2">
-                {{-- @if (Auth::user()->photo == null)
-                    <img src="/img/empty-user-2.jpg" alt="" class="">
-                @else
+        <div class="row p-2">
+            <div class="col-md-3 offse-md-1 show-left bg-grey-lighter p-4 d-flex justify-content-center flex-column">
+                <img src="/{{ Auth::user()->photo }}" class="user-img" id="user-img">
+            </div>
+            <div class="col-md-9 show-right bg-grey-lighter p-4">
+                <div class="mb-3 show-title text-center">
+                    Personal Information
+                    <a href="/users/{{ $user->id }}/edit" style="font-size:28px;">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="float-right" style="margin-top:-30px;">
+                    Joined {{ $user->created_at->diffForHumans() }}
+                </div>
+                <hr>
+                <div class="container">
+                    <strong>Name: </strong>
+                    {{ $user->name }}<br>
+                    <strong>Last Name: </strong>
+                    {{ $user->last_name == null ? "--" : $user->last_name}}<br>
+                    <strong>Email: </strong>
+                    {{ $user->email == null ? "--" : $user->email}}<br>
 
-                @endif --}}
-                <img src="/{{ $user->photo }}" class="user-img">
-                <p>{{ $user->photo }}</p>
-                <a href="{{ $user->id }}/edit" class="btn btn-outline-success btn-sm">
-                    <i class="fa fa-pencil text-center"></i>
-                    Edit Profile
-                </a>
+                    <hr>
+                    <strong>Facebook: </strong>
+                    {{ $user->facebook == null ? "--" : $user->facebook}}<br>
+                    <strong>Instagram: </strong>
+                    {{ $user->instagram == null ? "--" : $user->instagram}}<br>
+                    <strong>Website: </strong>
+                    {{ $user->website == null ? "--" : $user->website}}<br>
+                    <hr>
+                    <strong>Education: </strong>
+                    {{ $user->education == null ? "--" : $user->education}}<br>
+                    <hr>
+                    <strong>Location: </strong>
+                    {{ $user->location == null ? "--" : $user->location}}<br>
+                </div>
+
             </div>
-            <div class="col-md-9">
-                <strong>Name: </strong>
-                {{ $user->name }}<br>
-                <strong>Email: </strong>
-                {{ $user->email }}
-                <strong>last name: </strong>
-                {{ $user->last_name }}
-            </div>
+
         </div> <!-- end of personal info-->
 
         @if ($user->books->count())
 
             <!-- created by user -->
             <h6 class="section-title">Created by {{ $user->name }}</h6>
-            <div class="row books-row">
+            <div class="row books-row bg-grey-lighter">
                 @foreach ($user->books as $book)
                     @include('front.partials.book-card')
                 @endforeach
@@ -127,7 +138,7 @@
         @if(! $has_favorite_book == null)
             <!-- favorite books section -->
                  <h6 class="section-title">Favorite Books</h6>
-                 <div class="row books-row">
+                 <div class="row books-row bg-grey-lighter">
                  @foreach($books as $book)
                     @foreach ($book->favorites as $favorite)
                         @if ($favorite->user_id == auth()->user()->id && $favorite->fav == 1)
@@ -145,7 +156,7 @@
             @endforeach --}}
             <!-- favorite author section -->
                  <h6 class="section-title">Favorite Authors</h6>
-                 <div class="row books-row">
+                 <div class="row books-row bg-grey-lighter">
                  @foreach ($authorFavorites as $author)
                         @if ($favorite->user_id == auth()->user()->id && $favorite->fav == 1)
                             @include('front.partials.author-card')
@@ -156,7 +167,7 @@
 
                 <!-- last month section -->
                  <h6 class="section-title">Read Last Month</h6>
-                 <div class="row books-row">
+                 <div class="row books-row bg-grey-lighter">
                  @foreach($books as $book)
 
                         @if ($book->read_last_month() === True)

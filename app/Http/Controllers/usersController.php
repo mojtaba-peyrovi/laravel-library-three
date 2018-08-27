@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use App\authorFavorite;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\ImageManagerStatic as Image;
-
+use File;
 class usersController extends Controller
 {
     /**
@@ -84,53 +84,67 @@ class usersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
         if ($request->hasFile('image')) {
+            $usersImage = public_path("{$user->photo}");
+            $usersIcon = public_path("{$user->icon}"); // get previous image from folder
+            if (File::exists($usersImage)) { // unlink or remove previous image from folder
+            @unlink($usersImage);
+            }
+            if (File::exists($usersIcon)) { // unlink or remove previous image from folder
+            @unlink($usersIcon);
+            }
+
+
            //profile photo
            $image = $request->file('image');
-           $title = Auth::user()->name;
+           $title = $user->name;
            $slug = str_slug($title ,'-');
-           $filename = $slug . '-' . Carbon::now()->toDateString() . '.jpg';
+           $filename = $slug . '-' . Carbon::now()->toDateString() . '-' . rand(1,1000) . '.jpg';
            $image_resize = Image::make($image->getRealPath());
            $image_resize->fit(260, 346);
            $image_resize->save(public_path('img/users/' .$filename));
 
            //icon
            $icon = $request->file('image');
-           $iconTtitle = Auth::user()->name;
-           $iconFilename = $slug . '-' . 'icon' . '.jpg';
+           $iconTtitle = $user->name;
+           $iconFilename = $slug . '-' . 'icon' . '-' .rand(1,1000) . '.jpg';
            $icon_resize = Image::make($image->getRealPath());
            $icon_resize->fit(100, 100, function ($constraint) {
                         $constraint->upsize();
                     });
            $icon_resize->save(public_path('img/users/' . $iconFilename));
-       }
 
-       // update form
-        $user = Auth::user();
-        $user->name = $request->get('name');
-        $user->last_name = $request->get('last_name');
-        if ( ! $request->get('password') == '')
-        {
-            $user->password = bcrypt($request->get('password'));
-        }
+           // update form
+            $user->name = $request->get('name');
+            $user->last_name = $request->get('last_name');
+            if ( ! $request->get('password') == '')
+            {
+                $user->password = bcrypt($request->get('password'));
+            }
 
-        $user->photo = $request->get('photo');
-        $user->facebook= $request->get('facebook');
-        $user->instagram = $request->get('instagram');
-        $user->website = $request->get('website');
-        $user->education = $request->get('education');
-        if ( ! $request->get('image') == '')
-        {
+            $user->photo = $request->get('photo');
+            $user->facebook= $request->get('facebook');
+            $user->instagram = $request->get('instagram');
+            $user->website = $request->get('website');
+            $user->education = $request->get('education');
+            $user->icon = '/img/users/' . $iconFilename;
+            $user->photo = 'img/users/' . $filename;
+            $user->save();
+            } else {
 
+           // update form
+           $fields = ['name','last_name','email','education','location','facebook','instagram','website'];
+           $inputs = $request->only($fields);
+           User::where('id', $id)->update($request->only($fields));
+            }
 
-        }
-        $user->icon = '/img/users/' . $iconFilename;
-        $user->photo = 'img/users/' . $filename;
-        $user->save();
-        flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Changes Saved!')->success();
+            flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Changes Saved!')->success();
 
-        return redirect()->route('users.show',[$user]);
+            return redirect()->route('users.show',[$user]);
+
     }
+
 
     /**
      * Remove the specified resource from storage.

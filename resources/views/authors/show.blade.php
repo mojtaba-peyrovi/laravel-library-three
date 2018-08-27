@@ -84,7 +84,7 @@
                 <!-- favorite badge -->
                     @if(Auth::check())
                         @if(! $favorites_exist == null)
-                            <span class="badge badge-success fav-badge">Favorited</span>
+                            <span class="badge badge-success fav-badge"  style="margin-top:-20px;">Favorited</span>
                         @endif
                    @endif <!-- enf of favorite badge -->
                    <!-- book image -->

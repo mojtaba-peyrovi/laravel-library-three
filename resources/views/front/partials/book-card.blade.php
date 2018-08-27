@@ -41,7 +41,7 @@
     @if ($book->is_new() == True)
       @include('front.partials.new-badge')
     @else
-      <div style="width:4em;height:1.5em;;position:relative;top:20px;right:-63px;"></div>
+      <div style="width:4em;height:1.5em;position:relative;top:20px;right:-63px;"></div>
     @endif
     <div class="mb-3">
         <div class="view overlay book-overlay">

@@ -19,7 +19,6 @@
     }
     .user-img {
         border-radius: 6px;
-        box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
         position: relative;
     }
     .edit-title{
@@ -34,6 +33,7 @@
     .edit-left{
         max-height: 600px;
     }
+
     </style>
 @endsection
 @section('title')
@@ -54,8 +54,10 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="PATCH">
         <div class="row">
-            <div class="col-md-3 offse-md-1 edit-left bg-grey-lighter p-4d d-flex justify-content-center flex-column">
-                <img src="/{{ $user->photo }}" alt="" class="user-img" id="user-img">
+            <div class="col-md-3 offse-md-1 edit-left bg-grey-lighter p-4 d-flex justify-content-center flex-column">
+
+                    <img src="/{{ @Auth::user()->photo }}" class="user-img" id="user-img">
+
                 <div class="form-group" style="margin-top:30px;">
 
                     <div class="mt-5">
@@ -150,7 +152,8 @@
                             <hr>
                         </div>
                         <div class="map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.623312112092!2d100.62295581394652!3d13.7412410903543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61d74e32d94f%3A0xe8b621a15db071d5!2sThe+Nine+Center+Rama+9!5e0!3m2!1sen!2sth!4v1534930775058" width="850" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.623312112092!2d100.62295581394652!3d13.7412410903543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61d74e32d94f%3A0xe8b621a15db071d5!2sThe+Nine+Center+Rama+9!5e0!3m2!1sen!2sth!4v1534930775058" width="800" height="350" frameborder="0" style="border:0" allowfullscreen></iframe> --}}
+                            @include('front.partials.map-picker')
                         </div>
                         <div class="mt-5">
                             <hr>
@@ -170,19 +173,115 @@
 @section('script')
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
 <script type="text/javascript">
-    $(document).ready(function() {
+    // $(document).ready(function() {
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
                 $('#user-img').attr('src', e.target.result);
+                $('#user-icon').attr('src', e.target.result);
                 }
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
         $("#image").change(function() {
         readURL(this);
         });
-    });
+    // });
     </script>
+    <script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13
+        });
+        var card = document.getElementById('pac-card');
+        var input = document.getElementById('pac-input');
+        var types = document.getElementById('type-selector');
+        var strictBounds = document.getElementById('strict-bounds-selector');
+
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        // Bind the map's bounds (viewport) property to the autocomplete object,
+        // so that the autocomplete requests use the current map bounds for the
+        // bounds option in the request.
+        autocomplete.bindTo('bounds', map);
+
+        // Set the data fields to return when the user selects a place.
+        autocomplete.setFields(
+            ['address_components', 'geometry', 'icon', 'name']);
+
+        var infowindow = new google.maps.InfoWindow();
+        var infowindowContent = document.getElementById('infowindow-content');
+        infowindow.setContent(infowindowContent);
+        var marker = new google.maps.Marker({
+          map: map,
+          anchorPoint: new google.maps.Point(0, -29)
+        });
+
+        autocomplete.addListener('place_changed', function() {
+          infowindow.close();
+          marker.setVisible(false);
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+          }
+          marker.setPosition(place.geometry.location);
+          marker.setVisible(true);
+
+          var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
+
+          infowindowContent.children['place-icon'].src = place.icon;
+          infowindowContent.children['place-name'].textContent = place.name;
+          infowindowContent.children['place-address'].textContent = address;
+          infowindow.open(map, marker);
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        function setupClickListener(id, types) {
+          var radioButton = document.getElementById(id);
+          radioButton.addEventListener('click', function() {
+            autocomplete.setTypes(types);
+          });
+        }
+
+        setupClickListener('changetype-all', []);
+        setupClickListener('changetype-address', ['address']);
+        setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);
+
+        document.getElementById('use-strict-bounds')
+            .addEventListener('click', function() {
+              console.log('Checkbox clicked! New state=' + this.checked);
+              autocomplete.setOptions({strictBounds: this.checked});
+            });
+      }
+    </script>
+
 @endsection
