@@ -29,16 +29,27 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/css/mdb.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" >
-
+    <!-- tinyMCE -->
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=mafple32967qfow7fwcr9hbjz1gyj9jmi02aq0ke5pflv3xf"></script>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
       $( function() {
-        $( "#datepicker" ).datepicker();
+        $( "#datepicker" ).datepicker({
+            changeMonth: true,
+			changeYear: true,
+            yearRange: "-100:+0"
+        });
       });
      </script>
+     <script>
+      tinymce.init({
+        selector: '#mytextarea',
+        forced_root_block : ""
+      });
+    </script>
 
 
 

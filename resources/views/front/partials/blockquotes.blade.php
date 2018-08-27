@@ -18,10 +18,15 @@
 .quote-close-btn{
     color: rgb(89, 89, 89);
 }
+.card-header div{
+    margin-top: 2px;
+}
 </style>
 <div class="card mt-3 mb-3">
     <div class="card-header blockquote-header">
-        Created {{ $text->created_at->DiffForHumans() }}
+        <div>
+            {{ $text->created_at->DiffForHumans() }}
+        </div>
         <form class="" action="{{ route('remove-quote', [$book->id, $text->id]) }}" method="post">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="DELETE">

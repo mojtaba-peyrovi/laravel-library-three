@@ -169,7 +169,6 @@
                  <h6 class="section-title">Read Last Month</h6>
                  <div class="row books-row bg-grey-lighter">
                  @foreach($books as $book)
-
                         @if ($book->read_last_month() === True)
                         <div>
                             {{-- <div class="read-days-ago">

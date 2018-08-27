@@ -1,5 +1,18 @@
 <style type="text/css">
-
+    #user-icon {
+        width:20px;
+        height:20px;
+    }
+    nav {
+        font-size: 12px;
+        height: 60px;
+    }
+    .navbar-brand{
+        width: 40px;
+    }
+    .dropdown-item {
+        font-size: 12px;
+    }
 </style>
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark primary-color">
@@ -96,7 +109,7 @@
             @if (Auth::check())
                 <button class="dropdown-toggle nav-link text-white" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:1px solid orange;border-radius:5px;">
 
-                    <img src="{{ Auth::user()->icon }}" style="width:20px;height:20px;" class="rounded-circle" id="user-icon">
+                    <img src="/{{ Auth::user()->icon }}" class="rounded-circle" id="user-icon">
 
                      {{ Auth::user()->name }}
                 </button>

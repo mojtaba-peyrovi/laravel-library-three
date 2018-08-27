@@ -33,7 +33,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class);
     }
-    
+
     //favorites
     public function favorites()
     {
@@ -57,6 +57,7 @@ class User extends Authenticatable
    {
        return $this->hasMany(Author::class);
    }
+
 
 
 }

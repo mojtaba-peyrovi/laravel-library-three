@@ -1,8 +1,11 @@
 <style type="text/css">
     .book-img {
-        border-radius: 6px;
+        border-radius: 6px 20px 20px 6px;
         box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
         position: relative;
+        -webkit-box-shadow: inset -4px 11px 52px -2px rgba(31,31,31,1);
+        -moz-box-shadow: inset -4px 11px 52px -2px rgba(31,31,31,1);
+        box-shadow: inset -4px 11px 52px -2px rgba(31,31,31,1);
     }
     .fav-badge {
         z-index: 30;
@@ -109,7 +112,7 @@
                <!-- book image -->
                 <div class="photo-container">
                      @include('flash::message')
-                    <img src="{{ $book->photo }}" alt="" class="book-img">
+                    <img src="/{{ $book->photo }}" alt="" class="book-img">
                 </div>
                 <!-- end of book image -->
 
@@ -196,6 +199,7 @@
                                         EDIT
                                     </button>
                                 </form> <!-- end of edit button -->
+                                {{-- <a href="/books/{{ $book->id }}/edit" class="btn btn-warning btn-sm" style="padding:5px;">Edit</a> --}}
 
                                 <!-- delete button -->
                                 <form class="pull-right" action="{{ action('booksController@destroy', $book->id) }}" method="post">
@@ -245,7 +249,7 @@
 
                     <!-- about book section -->
                     <span class="mb-2 about-book-title mt-3">About the book</span>
-                    <p class="book-show-desc">{{ $book->desc }}</p>
+                    <p class="book-show-desc">{{ strip_tags($book->desc) }}</p>
 
                     <!-- end of about book section -->
                 @if (Auth::check())

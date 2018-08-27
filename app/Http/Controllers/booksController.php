@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use App\Author;
+use App\Publisher;
 use App\Type;
 use App\Read;
 use App\Quote;
@@ -17,6 +18,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use DB;
 use Validator;
 use Carbon\Carbon;
+use File;
 
 class booksController extends Controller
 {
@@ -88,7 +90,7 @@ class booksController extends Controller
             'publisher_id' => 1,
             'read_date' => Carbon::parse(request('read_date')),
             'publish_year' => request('publish_year'),
-            'photo' => '/img/books/'. $filename,
+            'photo' => 'img/books/'. $filename,
             'format' => request('format'),
             'rate'=> request('rate'),
             'desc' => request('desc')
@@ -135,11 +137,13 @@ class booksController extends Controller
      */
     public function edit($id)
     {
+
         $book = Book::find($id);
+        $publishers = Publisher::all();
         $read = Read::where('book_id','=',$id)->get();
         $last_read = $read->last()['read_date'];
 
-         return view('books.edit',compact('book','id','last_read'));
+         return view('books.edit',compact('book','id','last_read','publishers'));
     }
 
     /**
@@ -153,26 +157,43 @@ class booksController extends Controller
     {
 
         $book = Book::find($id);
-        $book->title = $request->get('title');
-        $book->author_id = $request->get('author');
-        $book->type_id = $request->get('type');
-        $book->publish_year = $request->get('publish_year');
-        $book->photo = $request->get('photo');
-        $book->desc = $request->get('desc');
-        $book->save();
+        if ($request->hasFile('image')) {
+            $bookImage = public_path("{$book->photo}");
+            if (File::exists($bookImage)) { // unlink or remove previous image from folder
+            @unlink($bookImage);
+            }
 
-        // $read = Read::create([
-        //     'user_id' => auth()->user()->id,
-        //     'book_id' => $book->id,
-        //     'read_date' => Carbon::parse(request('read_date'))
-        // ]);
+           //save photo
+           $image = $request->file('image');
+           $title = $book->title;
+           $slug = str_slug($title ,'-');
+           $filename = $slug . '-' . Carbon::now()->toDateString() . '-' . rand(1,1000) . '.jpg';
+           $image_resize = Image::make($image->getRealPath());
+           $image_resize->fit(260, 346);
+           $image_resize->save(public_path('img/books/' .$filename));
+
+           // update form
+            $book->user_id = Auth::user()->id;
+            $book->author_id = $book->author['id'];
+            $book->publisher_id = $book->publisher['id'];
+            $book->type_id = $book->type['id'];
+            $book->publish_year = $request->get('publish_year');
+            $book->title = $request->get('title');
+            $book->photo = 'img/books/' . $filename;
+            $book->format = $request->get('format');
+            $book->desc = $request->get('desc');
+            $book->save();
+            } else {
+
+           // update form
+           $fields = ['user_id','author_id','publisher_id','type_id','publish_year','title','format','desc'];
+           $inputs = $request->only($fields);
+           Book::where('id', $id)->update($request->only($fields));
+            }
 
         flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Changes Saved!')->success();
 
-        // return view('books.show', ['book' => Book::find($id)]);
-        // return redirect('/books/{book}');
         return redirect()->route('books.show',[$book]);
-
     }
 
     /**

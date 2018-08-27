@@ -2,12 +2,12 @@
 @extends('layouts.master')
 @section('styles')
 <style type="text/css">
-    .section-title{ 
+    .section-title{
         font-size: 25px;
         text-align: center;
-        
 
-} 
+
+}
 .jumbotron {
     background: linear-gradient(#006666, #ffff66);
 }
@@ -19,7 +19,7 @@
     box-shadow: -11px 19px 38px -18px rgba(122,116,122,0.75);
 }
 
-    
+
 
 </style>
 @endsection
@@ -79,19 +79,19 @@
                 @include('front.partials.book-card')
             @endif
         @endforeach
-        </div>  <!-- end of recently added-->        
-         
+        </div>  <!-- end of recently added-->
+
 
         <!-- all books -->
-        <div class="mt-4 section-title">All Books</div>        
+        <div class="mt-4 section-title">All Books</div>
         <div class="row books-row">
-            @foreach ($books as $book)            
-                @include('front.partials.book-card')  
+            @foreach ($books as $book)
+                @include('front.partials.book-card')
             @endforeach
         </div>  <!-- end of all books-->
         <span class="d-flex justify-content-center mt-3">
             {{ $books->links() }}
-        </span>        
+        </span>
     </div>
 
 

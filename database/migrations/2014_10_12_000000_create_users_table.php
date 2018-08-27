@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
-            $table->string('photo')->nullable()->default('img/empty-user.jpg');
-            $table->string('icon')->nullable()->default('/img/empty-user-icon.jpg');
+            $table->string('photo')->nullable()->default('img/users/empty-user.jpg');
+            $table->string('icon')->nullable()->default('img/users/empty-user-icon.png');
             $table->string('password');
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();

@@ -4,7 +4,7 @@
         font-size: 12px;
     }
     nav {
-    	background-color:rgba(255, 80, 80,0.8)
+    	background-color:rgba(255, 80, 80,0.8);
     }
 	.add-book-now {
 		background-color: rgba(255, 255, 255, 0.4);
@@ -18,7 +18,7 @@
 	}
 </style>
 @if (! $author->books->count())
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg" style="height:30px;">
     <div class="lead">
         You haven't added any book for
         <strong>{{ $author->name }}</strong> yet

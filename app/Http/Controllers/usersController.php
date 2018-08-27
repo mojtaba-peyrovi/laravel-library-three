@@ -85,6 +85,7 @@ class usersController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
+
         if ($request->hasFile('image')) {
             $usersImage = public_path("{$user->photo}");
             $usersIcon = public_path("{$user->icon}"); // get previous image from folder
@@ -128,7 +129,7 @@ class usersController extends Controller
             $user->instagram = $request->get('instagram');
             $user->website = $request->get('website');
             $user->education = $request->get('education');
-            $user->icon = '/img/users/' . $iconFilename;
+            $user->icon = 'img/users/' . $iconFilename;
             $user->photo = 'img/users/' . $filename;
             $user->save();
             } else {

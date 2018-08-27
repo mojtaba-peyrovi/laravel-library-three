@@ -45,7 +45,7 @@
     @endif
     <div class="mb-3">
         <div class="view overlay book-overlay">
-            <img class="z-depth-1-half book-card-img" src="{{ $book->photo }}" alt="">
+            <img class="z-depth-1-half book-card-img" src="/{{ $book->photo }}" alt="">
             <a href="/books/{{$book->id}}">
                 <div class="mask flex-center book-card-mask">
                     <p class="">Read More...</p>
