@@ -82,6 +82,11 @@
     .book-show-left{
         max-height: 850px;
     }
+    .reviews {
+        font-size: 13px;
+        margin-top: -5px;
+        margin-left: 15px;
+    }
 </style>
 
 
@@ -183,9 +188,18 @@
                             {{ $book->publisher['name'] }}
                         </a>
                     </p>
-                    <!-- rating stars -->
-                    <div class="mt-2">
-                        @include('front.partials.rate-stars')
+                    <!-- reviews -->
+                        <div class="d-flex jusify-content-center">
+                            @include('front.partials.book-reviews')
+                            <a class="reviews" href="#">
+                                {{ $reviews = $book->reviews()->count() }}
+                                 {{str_plural('Review', $reviews)}}
+                             </a>
+                        </div>
+                    <!-- end of reviews -->
+
+                    <div class="">
+
                     </div>
 
                     <!-- favorite, delete, edit buttons -->
@@ -271,10 +285,10 @@
 
             </div> <!-- end of right section-->
 
-
-
         </div> <!-- end of first row -->
 
+
+        @include('front.partials.reviews-section')
 
         <div class="row">
             @if ($related_books->count())

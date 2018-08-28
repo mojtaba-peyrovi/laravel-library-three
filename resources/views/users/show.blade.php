@@ -84,7 +84,7 @@
         <!-- personal info -->
         <div class="row p-2">
             <div class="col-md-3 offse-md-1 show-left bg-grey-lighter p-4 d-flex justify-content-center flex-column">
-                <img src="/{{ Auth::user()->photo }}" class="user-img" id="user-img">
+                <img src="/{{ Auth::user()['photo']}}" class="user-img" id="user-img">
             </div>
             <div class="col-md-9 show-right bg-grey-lighter p-4">
                 <div class="mb-3 show-title text-center">
@@ -123,6 +123,23 @@
             </div>
 
         </div> <!-- end of personal info-->
+
+        <!-- last month section -->
+         <h6 class="section-title">Read Last Month</h6>
+         <div class="row books-row bg-grey-lighter">
+         @foreach($books as $book)
+                @if ($book->read_last_month() === True)
+                <div>
+                    {{-- <div class="read-days-ago">
+                    Read {{ \Carbon\Carbon::parse($book->read_date)->diffForHumans() }}
+                    </div> --}}
+                    <div style="margin-top: -30px;">
+                        @include('front.partials.book-card')
+                    </div>
+                </div>
+                @endif
+        @endforeach
+        </div>  <!-- end of last month section -->
 
         @if ($user->books->count())
 
@@ -165,22 +182,7 @@
             </div>  <!-- end of favorite authors section -->
         @endif
 
-                <!-- last month section -->
-                 <h6 class="section-title">Read Last Month</h6>
-                 <div class="row books-row bg-grey-lighter">
-                 @foreach($books as $book)
-                        @if ($book->read_last_month() === True)
-                        <div>
-                            {{-- <div class="read-days-ago">
-                            Read {{ \Carbon\Carbon::parse($book->read_date)->diffForHumans() }}
-                            </div> --}}
-                            <div style="margin-top: -30px;">
-                                @include('front.partials.book-card')
-                            </div>
-                        </div>
-                        @endif
-                @endforeach
-                </div>  <!-- end of last month section -->
+
             </div>
 
     </div>

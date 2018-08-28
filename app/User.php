@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Read;
 use App\Quote;
+use App\Review;
 
 class User extends Authenticatable
 {
@@ -57,6 +58,10 @@ class User extends Authenticatable
    {
        return $this->hasMany(Author::class);
    }
+   public function reviews()
+  {
+      return $this->hasMany(Review::class);
+  }
 
 
 

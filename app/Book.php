@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Read;
 use App\Quote;
+use App\Review;
+
 class Book extends Model
 {
     protected $guarded = [];
@@ -34,6 +36,10 @@ class Book extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 
     public function is_new()
     {
@@ -54,7 +60,7 @@ class Book extends Model
             return True;
         }else {
             return False;
-        }  
+        }
     }
 
      public function favorites()
@@ -70,4 +76,13 @@ class Book extends Model
     {
         return $this->hasMany(Quote::class);
     }
+
+    public function calculate_stars()
+    {
+
+        $avg = $this->reviews()->avg('rate');
+        $reviews_avg = round($avg,1);
+        return $reviews_avg;
+    }
+
 }

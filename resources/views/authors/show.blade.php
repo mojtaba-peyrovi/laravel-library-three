@@ -8,7 +8,7 @@
         top: 320px;
     }
     .author-img {
-        border-radius: 6px;
+        border-radius: 1.3rem 0.1rem 1.3rem 0.1rem;
         box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
         position: relative;
     }

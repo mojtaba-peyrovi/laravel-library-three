@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    @include('front.partials.rate-stars')
+    @include('front.partials.book-reviews')
     <a href="/books/{{ $book->id }}">
         <div class="row">
             <span class="card-book-title">{{ str_limit($book->title, $limit = 10, $end = '...') }}</span>

@@ -58,8 +58,8 @@ class usersController extends Controller
 
         $books = Book::all();
         $authorFavorites = Author::all();
-        $has_favorite_book = Favorite::where('user_id','=',auth()->user()->id)->first();
-        $has_favorite_author = authorFavorite::where('user_id','=',auth()->user()->id)->first();
+        $has_favorite_book = Favorite::where('user_id','=',auth()->user()['id'])->first();
+        $has_favorite_author = authorFavorite::where('user_id','=',auth()->user()['id'])->first();
         // dd($has_favorite_author);
         return view('users.show', compact('user','books','authorFavorites','has_favorite_book','has_favorite_author'));
     }
@@ -87,8 +87,8 @@ class usersController extends Controller
         $user = Auth::user();
 
         if ($request->hasFile('image')) {
-            $usersImage = public_path("{$user->photo}");
-            $usersIcon = public_path("{$user->icon}"); // get previous image from folder
+            $usersImage = public_path("{$user['photo']}");
+            $usersIcon = public_path("{$user['icon']}"); // get previous image from folder
             if (File::exists($usersImage)) { // unlink or remove previous image from folder
             @unlink($usersImage);
             }

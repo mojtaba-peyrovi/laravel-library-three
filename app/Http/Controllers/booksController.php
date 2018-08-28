@@ -41,11 +41,12 @@ class booksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Book $book)
     {
         $books = Book::paginate(6);
+        $book_stars = $book->calculate_stars();     
 
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books','int','decimal'));
     }
 
     /**
@@ -117,16 +118,17 @@ class booksController extends Controller
     {
 
         $self = Book::find($book)->all();
-        // dd($self);
         $related_books = Book::where('type_id', $book->type_id)->get();
-        // $final_related = $related_books->diff($self);
-        // dd($final_related);
         $favorites_exist = Favorite::where('book_id','=',$book->id)->
                                      where('user_id','=',auth()->user()['id'])->first();
 
         $book_rate = $book->rate;
+        $book_stars = $book->calculate_stars();
+        $int = floor($book_stars);
+        $decimal = $book_stars - $int;
+
         $quotes = Quote::all();
-        return view('books.show', compact('book','related_books','$book_rate','favorites_exist','quotes'));
+        return view('books.show', compact('book','related_books','$book_rate','favorites_exist','quotes','int','decimal'));
     }
 
     /**

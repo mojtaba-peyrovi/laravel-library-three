@@ -16,7 +16,7 @@
 }
 .author-card-img,
 .author-overlay{
-  border-radius: 0.25rem 0.7rem 0.7rem 0.25rem;
+  border-radius: 0.9rem 0.1rem 0.9rem 0.1rem;
   width:120px;
 }
 
@@ -39,7 +39,7 @@
         </div>
         <strong>
             <a href="/authors/{{ $author->id }}">
-                <div class="mt-3">@include('front.partials.author-rate-stars')</div>
+                <div class="mt-3">@include('front.partials.author-reviews')</div>
                 <div class="card-author-title">
                     {{ str_limit($author->fullName(), $limit = 15, $end = '...') }}<br>
                 </div>
