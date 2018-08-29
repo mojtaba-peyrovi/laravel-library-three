@@ -84,14 +84,17 @@
         <!-- personal info -->
         <div class="row p-2">
             <div class="col-md-3 offse-md-1 show-left bg-grey-lighter p-4 d-flex justify-content-center flex-column">
-                <img src="/{{ Auth::user()['photo']}}" class="user-img" id="user-img">
+                <img src="/{{ $user['photo']}}" class="user-img" id="user-img">
             </div>
             <div class="col-md-9 show-right bg-grey-lighter p-4">
                 <div class="mb-3 show-title text-center">
                     Personal Information
-                    <a href="/users/{{ $user->id }}/edit" style="font-size:28px;">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </a>
+                    @if ($user->id == @Auth()->user()->id)
+                        <a href="/users/{{ $user->id }}/edit" style="font-size:28px;">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                    @endif
+
                 </div>
                 <div class="float-right" style="margin-top:-30px;">
                     Joined {{ $user->created_at->diffForHumans() }}

@@ -29,7 +29,6 @@
         border-radius: 5px;
         text-align: center;
         font-family: 'Arial',serif;
-
     }
 
     #fav-popup,
@@ -126,7 +125,7 @@
                     @if(Auth::check())
 
                         <ul>
-                            <li class="mt-4 about-book-title" style="margin-left: -40px;">
+                            <li class="mt-4 about-book-title" style="margin-left: -40px;"  id="reads">
                                 Read Dates
                             </li>
                             @foreach($book->reads as $read)
@@ -191,16 +190,12 @@
                     <!-- reviews -->
                         <div class="d-flex jusify-content-center">
                             @include('front.partials.book-reviews')
-                            <a class="reviews" href="#">
+                            <a class="reviews" href="#reviews-section">
                                 {{ $reviews = $book->reviews()->count() }}
                                  {{str_plural('Review', $reviews)}}
                              </a>
                         </div>
                     <!-- end of reviews -->
-
-                    <div class="">
-
-                    </div>
 
                     <!-- favorite, delete, edit buttons -->
                         <div class="d-flex justify-content-end fav-delete-edit-bottons">

@@ -106,7 +106,7 @@
                     </h1>
                     <!-- rating stars -->
                     <div class="mt-2">
-                        @include('front.partials.author-rate-stars')
+                        @include('front.partials.author-reviews')
                     </div>
                     <p class="author-show-subtitle">
                         <a href="{{ $author->wiki }}" target="_blank">Wikipedia</a>

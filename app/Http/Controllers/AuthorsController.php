@@ -6,6 +6,7 @@ use App\Author;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
+use App\Book;
 use App\authorFavorite;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -19,6 +20,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
+        // $book_stars = $book->calculate_stars();
         return view('authors.index');
     }
 
