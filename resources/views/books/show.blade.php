@@ -86,6 +86,9 @@
         margin-top: -5px;
         margin-left: 15px;
     }
+    .reads-list li{
+        list-style: none;
+    }
 </style>
 
 
@@ -124,7 +127,7 @@
                     <!-- read dates -->
                     @if(Auth::check())
 
-                        <ul>
+                        <ul class="reads-list">
                             <li class="mt-4 about-book-title" style="margin-left: -40px;"  id="reads">
                                 Read Dates
                             </li>
@@ -142,7 +145,7 @@
                                     </li>
                                 @endif
                             @endforeach
-                            <li style="margin-left:-20px;">
+                            <li style="margin-left:-27px;">
                                 <!-- add read form -->
                                 <form class="form-inline" method="post" action="{{ route('add-read', $book->id) }}">
                                     {{ csrf_field() }}
@@ -199,7 +202,7 @@
 
                     <!-- favorite, delete, edit buttons -->
                         <div class="d-flex justify-content-end fav-delete-edit-bottons">
-                            @if ($book->user->id == Auth::user()['id'])
+                            @if ($book->user['id'] == @Auth::user()['id'])
                                 <!-- edit button -->
                                 <form method="get" action="/books/{{ $book->id}}/edit">
                                     {{ csrf_field() }}
@@ -242,7 +245,7 @@
                         </div> <!-- end of favorite, delete, edit buttons -->
                         <!-- created by-->
                         <span class="text-muted font-small ">Created by:
-                            <a href="/users/{{ $book->user->id}}">
+                            <a href="/users/{{ $book->user['id']}}">
                              {{ $book->user['name'] }}
                              </a>
                          </span>
@@ -266,10 +269,10 @@
                     <hr class="mt-2 mb-2">
                       <div class="mt-4">
                           <span class="mb-2 about-book-title">
-                              {{ Auth::user()['name'] }}'s Favorite Quotes
+                              {{ @Auth::user()['name'] }}'s Favorite Quotes
                           </span>
                           @foreach ($book->quotes as $text)
-                              @if ($text->user->id === Auth::user()['id'])
+                              @if ($text->user['id'] === @Auth::user()['id'])
                                   @include('front.partials.blockquotes')
                               @endif
                           @endforeach

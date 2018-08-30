@@ -15,14 +15,17 @@
     color: white;
   }
   .card-book-title{
+    font-family: 'Oswald', sans-serif;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
     margin-left: 15px;
     margin-top: -12px;
   }
   .card-book-year{
     margin-top: -12px;
+    font-family: 'Oswald', sans-serif;
     font-size: 13px;
+    font-weight: 400;
   }
   .index-type-badge{
     z-index: 2;

@@ -37,7 +37,7 @@
                         <!-- end of stars-->
                         <div style="font-size:14px;">
                             by
-                            <a href="/users/{{ $review->user->id }}">{{ $review->user->name }}</a>
+                            <a href="/users/{{ $review->user['id'] }}">{{ $review->user['name'] }}</a>
                         </div>
                         <div style="font-size:14px;margin-top:5px;">
                             {{ $book->created_at->format('Y-m-d') }}
@@ -47,11 +47,11 @@
                         <div class="container">
                             <div style="font-size:18px; font-weight:500;">{{ ucwords($review->review_title) }}</div>
                             <span style="font-size:12px;color:green;font-weight:400;">
-                            <span class="hidden">{{ $user_fav = $review->user->favorites->where('book_id',$book->id)}}</span>
+                            <span class="hidden">{{ $user_fav = $review->user['favorites']->where('book_id',$book['id'])}}</span>
                             <span class="hidden">{{ $read = $book->reads->where('user_id',$review->user_id)}} </span>
                                 {{ $user_name = $review->user->name }}
                                 {{-- {{ $user_name == Auth()->user()->name ? ' (You) have ':'has ' }} --}}
-                                @if ($user_name == Auth()->user()->name)
+                                @if ($user_name == @Auth()->user()->name)
                                     @if ($read_times = $read->count() == 0)
                                         {{ " (you) haven't read this book yet" }}
                                         {{ $user_fav->first()['fav'] == '1'?', but Favorited the book':'' }}
