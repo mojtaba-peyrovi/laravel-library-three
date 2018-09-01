@@ -44,7 +44,7 @@ class booksController extends Controller
     public function index(Book $book)
     {
         $books = Book::paginate(6);
-        $book_stars = $book->calculate_stars();     
+        $book_stars = $book->calculate_stars();
 
         return view('books.index', compact('books','int','decimal'));
     }
@@ -127,8 +127,18 @@ class booksController extends Controller
         $int = floor($book_stars);
         $decimal = $book_stars - $int;
 
+        //popularity
+        $popularity = round(($book_stars / 5) * 100);
+        // stars percentages
+        $five = $book->five_star_percent();
+        $four = $book->four_star_percent();
+        $three = $book->three_star_percent();
+        $two = $book->two_star_percent();
+        $one = $book->one_star_percent();
+        // dd($book_reviews );
+
         $quotes = Quote::all();
-        return view('books.show', compact('book','related_books','$book_rate','favorites_exist','quotes','int','decimal'));
+        return view('books.show', compact('book','related_books','$book_rate','favorites_exist','quotes','int','decimal','five','four','three','two','one','popularity'));
     }
 
     /**

@@ -10,7 +10,7 @@
     <!-- google font -->
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Courgette|Lobster|Noto+Serif|Oswald|Poller+One|Unna|Roboto:300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Lobster|Noto+Serif|Oswald|Poller+One|Unna|Roboto:300,400|Monoton" rel="stylesheet">
 
 
     <!-- favicon -->
@@ -29,6 +29,11 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/css/mdb.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" >
+    <!-- progress bar -->
+    <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
+    <!-- slider css -->
+    <link rel="stylesheet" href="{{ asset('css/lightslider.css') }}">
+
     <!-- tinyMCE -->
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=mafple32967qfow7fwcr9hbjz1gyj9jmi02aq0ke5pflv3xf"></script>
 
@@ -58,7 +63,35 @@
     		});
     	});
     </script>
-
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#content-slider').lightSlider({
+            item:6,
+            loop:true,
+            auto:true,
+            slideMove:6,
+            easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+            speed:600,
+            responsive : [
+                {
+                    breakpoint:800,
+                    settings: {
+                        item:3,
+                        slideMove:1,
+                        slideMargin:6,
+                      }
+                },
+                {
+                    breakpoint:480,
+                    settings: {
+                        item:2,
+                        slideMove:1
+                      }
+                }
+            ]
+        });
+      });
+    </script>
 
 
     </head>

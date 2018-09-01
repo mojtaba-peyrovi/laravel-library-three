@@ -1,3 +1,4 @@
+
 <style type="text/css">
     .book-img {
         border-radius: 6px 20px 20px 6px;
@@ -79,7 +80,7 @@
         justify-content: center;
     }
     .book-show-left{
-        max-height: 850px;
+        /* max-height: 1000px; */
     }
     .reviews {
         font-size: 13px;
@@ -89,6 +90,7 @@
     .reads-list li{
         list-style: none;
     }
+
 </style>
 
 
@@ -162,7 +164,10 @@
                    @endif
 
                 </div>
+
+                @include('front.partials.book-show-insights')
             </div>
+
 
             <div class="book-show-right col-md-8 offset-md-1 bg-grey-lighter p-4">
                 <div class="book-show-header">
@@ -175,9 +180,9 @@
                     </h1>
 
                     <!-- type badge -->
-                        <span class="badge type-badge {{ $book->type['color'] }} mt-3">
-                        {{ $book->type['title'] }}
-                        </span>
+                    <span class="badge type-badge {{ $book->type['color'] }} mt-3">
+                    {{ $book->type['title'] }}
+                    </span>
                     <p class="mt-2 book-show-subtitle">
                         by <a href="/authors/{{ $book->author['id'] }}">
                         {{ $book->author['name'] }}
@@ -191,14 +196,15 @@
                         </a>
                     </p>
                     <!-- reviews -->
-                        <div class="d-flex jusify-content-center">
-                            @include('front.partials.book-reviews')
-                            <a class="reviews" href="#reviews-section">
-                                {{ $reviews = $book->reviews()->count() }}
-                                 {{str_plural('Review', $reviews)}}
-                             </a>
-                        </div>
+                    <div class="d-flex jusify-content-center">
+                        @include('front.partials.book-reviews')
+                        <a class="reviews" href="#reviews-section">
+                            {{ $reviews = $book->reviews()->count() }}
+                             {{str_plural('Review', $reviews)}}
+                         </a>
+                    </div>
                     <!-- end of reviews -->
+
 
                     <!-- favorite, delete, edit buttons -->
                         <div class="d-flex justify-content-end fav-delete-edit-bottons">

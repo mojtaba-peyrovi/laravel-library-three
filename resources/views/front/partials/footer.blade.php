@@ -1,5 +1,10 @@
+<style media="screen">
+    .page-footer{
+        background-color:#009999;
+    }
+</style>
 <!-- Footer -->
-<footer class="page-footer font-small blue pt-4 mt-5">
+<footer class="page-footer font-small pt-4 mt-5">
 
 
 

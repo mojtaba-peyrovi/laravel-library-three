@@ -6,6 +6,7 @@
 		margin-top: -20px;
 	}
 
+
 </style>
 <span class="hidden">{{ $book_stars = $book->calculate_stars() }}</span>
 <span class="hidden">{{ $int = floor($book_stars) }}</span>

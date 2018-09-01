@@ -8,19 +8,35 @@
     .review-form.active:before {content: "-"; padding:10px 10px 10px 0; color:green; font-weight:bold;}
     #toggle{width:500px; margin:0 auto;}
 
+    .progress-bar {
+        margin-bottom: 10px;
+        height:30px;
+    }
 
 </style>
 
 
 
 <!-- reviews row -->
+
+
 @if ($book->reviews()->count())
     <div class="row reviews-section" id="reviews-section">
         @if ($book->reviews()->count())
             <div class="col-md-12 bg-grey-lighter related-books mt-4 p-3">
-                <span class="about-book-title">Reviews</span>
+                <span class="about-book-title">
+                    Reviews
+                </span>
+                <span class="float-right"style="font-weight:500;">
+                    <a href="#">
+                        See all reviews
+                    </a>
+                </span>
                 <hr>
-                @foreach ($book->reviews as $review)
+
+
+
+                @foreach ($book->reviews->take(5) as $review)
                 <div class="row">
                     <div class="col-md-2 text-center mt-2">
                         <!-- rating stars -->

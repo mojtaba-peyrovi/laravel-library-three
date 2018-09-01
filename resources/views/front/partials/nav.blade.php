@@ -1,25 +1,55 @@
 <style type="text/css">
     #user-icon {
-        width:20px;
-        height:20px;
+        width:25px;
+        height:25px;
     }
     nav {
         font-size: 12px;
-        height: 60px;
+        /* height: 60px; */
     }
-    .navbar-brand{
-        width: 40px;
+    .books-menu-item li,
+    .user-menu a{
+        border-bottom: 1px solid white;
     }
-    .dropdown-item {
-        font-size: 12px;
+
+    .books-menu-item li:hover {
+        background-color: #00cccc;
     }
+
+    .dropdown-primary {
+        background-color:#006666;
+        width:1000px;
+    }
+
+    .site-name {
+        font-family: 'Monoton', cursive;
+        font-size: 25px;
+    }
+
+    .user-menu a:hover{
+        background-color: #00cccc;
+    }
+
+    .user-menu {
+        background-color:#006666;
+    }
+
+    .btn-group {
+        padding-right: 50px;
+    }
+    .navbar {
+        background-color:#009999;
+    }
+
+
 </style>
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+<nav class="navbar navbar-expand-lg navbar-dark">
 
     <!-- Navbar brand -->
     <a class="navbar-brand" href="/">
-        <img src="{{ asset('img/logo.png') }}" alt="">
+        {{-- <img src="{{ asset('img/logo.png') }}" alt=""> --}}
+        <span class="site-name">ANNA & MOJI'S LIBRARY</span>
     </a>
 
     <!-- Collapse button -->
@@ -38,70 +68,126 @@
             <!-- Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-book"></i>
                     Books</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/books">All Books</a>
-                    <a class="dropdown-item" href="/ebooks">Ebooks</a>
-                    <a class="dropdown-item" href="/physical-books">Physical Books</a>
-                    <a class="dropdown-item" href="/audio-books">Audio Books</a>
-                    @if (Auth::check())
-                        <a class="dropdown-item" href="/books/create">
-                            <span class="text-warning">
-                                <i class="fa fa-pencil"></i>
-                                Add More Books</span>
-                        </a>
-                    @endif
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="text-white mt-2 ml-2">Books</h5>
+                            <ul class="list-unstyled books-menu-item">
+                                <li>
+                                    <a href="#">All Books</a>
+                                </li>
+                                <li>
+                                    <a href="#">Recently added Books</a>
+                                </li>
+                                <li>
+                                    <a href="#">Most Popular Books</a>
+                                </li>
+                            </ul>
+                            <h5 class="text-white mt-5 ml-2">Book Format</h5>
+                            <ul class="list-unstyled books-menu-item">
+                                <li>
+                                    <a href="#">Ebooks</a>
+                                </li>
+                                <li>
+                                    <a href="#">Physical Books</a>
+                                </li>
+                                <li>
+                                    <a href="#">Audio Books</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-white mt-2 ml-2">Genres</h5>
+                            <ul class="list-unstyled books-menu-item">
+                                <li>
+                                    <a href="#">All Genres</a>
+                                </li>
+                                <li>
+                                    <a href="#">Popular Genres</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-white mt-2 ml-2">
+                                <i class="fa fa-user"></i>
+                                Members Only
+                            </h5>
+                            <ul class="list-unstyled books-menu-item">
+                                @if (@Auth::check())
+                                    <li>
+                                        <a href="{{ route('books.create')}}">Add a New Book</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('books.create')}}">Add a New Genre</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+
+
+
 
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-pencil"></i>
                     Authors</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/authors">All Authors</a>
-                    @if (Auth::check())
-                        <a class="dropdown-item" href="/authors/create">
-                            <span class="" style="background-color:yellow;">
-                                <i class="fa fa-pencil"></i>
-                                Add More Authors</span>
-                        </a>
-                    @endif
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="text-white mt-2 ml-2">Authors</h5>
+                            <ul class="list-unstyled books-menu-item">
+                                <li>
+                                    <a href="#">All Authors</a>
+                                </li>
+                                <li>
+                                    <a href="#">Recently Added Authors</a>
+                                </li>
+                                <li>
+                                    <a href="#">Most Popular Authors</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-white mt-2 ml-2">Publishers</h5>
+                            <ul class="list-unstyled books-menu-item">
+                                <li>
+                                    <a href="#">All Publishers</a>
+                                </li>
+                                <li>
+                                    <a href="#">Recently Added Publishers</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-white mt-2 ml-2">
+                                <i class="fa fa-user"></i>
+                                Members Only
+                            </h5>
+                            <ul class="list-unstyled books-menu-item">
+                                @if (@Auth::check())
+                                    <li>
+                                        <a href="{{ route('authors.create')}}">Add a New Author</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('authors.create')}}">Add a New Publisher</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+
+
 
                 </div>
             </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-bookmark"></i>
-                    Types(Genres)</a>
-                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/types">All Types</a>
-                    @if (Auth::check())
-                        <a class="dropdown-item" href="/types/create">
-                            <span class="text-warning">
-                                <i class="fa fa-pencil"></i>
-                                Add a Type</span>
-                        </a>
-                    @endif
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-flag"></i>
-                    Publishers</a>
-                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/publishers">All Publishers</a>
-                    @if (Auth::check())
-                        <a class="dropdown-item" href="/publishers/create">
-                            <span class="text-warning">
-                                <i class="fa fa-pencil"></i>
-                                Add a Publisher</span>
-                        </a>
-                    @endif
-                </div>
-            </li>
         </ul>
 
 
@@ -113,8 +199,10 @@
 
                      {{ Auth::user()->name }}
                 </button>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu user-menu">
                   <a class="dropdown-item" href="/users/{{ Auth::user()->id }}">My Profile</a>
+                  <a class="dropdown-item" href="">My Favorite Books</a>
+                  <a class="dropdown-item" href="">My Favorite Authors</a>
                   <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             @else

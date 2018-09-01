@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
         $bookQuantity = 100;
         $favoriteQuantity = 1300;
         $publisherQuantity = 30;
-        $readQuantity = 500;
-        $reviewQuantity = 500;
+        $readQuantity = 1500;
+        $reviewQuantity = 5000;
         $typeQuantity = 15;
         $quoteQuantity = 500;
 
