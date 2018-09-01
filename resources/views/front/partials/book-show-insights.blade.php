@@ -51,17 +51,10 @@
     <hr>
     <div class="popularity">
         Popularity
+        <span>( %{{ $popularity }} )</span>
     </div>
-    <!-- book review -->
-    <div class="book-review-chart">
-        <div class="c100 p{{ $popularity }}">
-          <span>{{ $popularity }}%</span>
-          <div class="slice">
-            <div class="bar"></div>
-            <div class="fill"></div>
-          </div>
-        </div>
-    </div>
+    <span class="hidden" id="popularity">{{ $popularity }}</span>
+    <canvas id="pie-chart" width="400" height="400"></canvas>
      <!-- end of book review -->
         <hr>
         <div class="book-show-insights">

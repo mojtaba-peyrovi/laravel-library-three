@@ -43,7 +43,7 @@ class booksController extends Controller
      */
     public function index(Book $book)
     {
-        $books = Book::paginate(6);
+        $books = Book::paginate(15);
         $book_stars = $book->calculate_stars();
 
         return view('books.index', compact('books','int','decimal'));

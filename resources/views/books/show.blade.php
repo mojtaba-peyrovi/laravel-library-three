@@ -234,6 +234,7 @@
                                             DELETE
                                     </button>
                                 </form>  <!-- end of delete butoon -->
+
                             @endif
                             <!-- favorite button-->
                             @if(Auth::check())
@@ -344,6 +345,31 @@
         ref.mouseleave(function(event) {
             popup.hide();
         });
+    </script>
+    <script type="text/javascript">
+    var popularity = $('#popularity').html();
+    var unpopularity = 100 - popularity;
+    new Chart(document.getElementById("pie-chart"), {
+        type: 'doughnut',
+        data: {
+          labels: ["Popularity", "Unpopularity"],
+          datasets: [{
+            label: "Population (millions)",
+            backgroundColor: ["#ff8800", "#ffdbb3"],
+            data: [popularity,unpopularity]
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Popularity is the average of reviews by all users'
+            },
+            legend: {
+                display:false,
+            }
+
+        }
+    });
     </script>
 
 @endsection

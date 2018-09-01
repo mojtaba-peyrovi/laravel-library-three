@@ -15,10 +15,14 @@
     .books-menu-item li:hover {
         background-color: #00cccc;
     }
-
+ .books-menu-item li{
+     margin-right: 5px;
+     margin-left: 5px;
+ }
     .dropdown-primary {
         background-color:#006666;
         width:1000px;
+        padding: 10px;
     }
 
     .site-name {
@@ -32,14 +36,36 @@
 
     .user-menu {
         background-color:#006666;
+        width:200px;
+
     }
 
     .btn-group {
-        padding-right: 50px;
+        /* padding-right: 50px; */
     }
     .navbar {
         background-color:#009999;
     }
+    .signup-img {
+        max-width: 100%;
+        height: auto;
+        padding: 2px;
+        margin-top: 50px;
+    }
+    .signup-img:hover {
+        background-color:
+    }
+    .user-menu-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: -10px;
+        margin-right: -1px;
+        border-radius: 5px;
+        background: #ff8800;
+    }
+
 
 
 </style>
@@ -48,7 +74,6 @@
 
     <!-- Navbar brand -->
     <a class="navbar-brand" href="/">
-        {{-- <img src="{{ asset('img/logo.png') }}" alt=""> --}}
         <span class="site-name">ANNA & MOJI'S LIBRARY</span>
     </a>
 
@@ -75,7 +100,7 @@
                             <h5 class="text-white mt-2 ml-2">Books</h5>
                             <ul class="list-unstyled books-menu-item">
                                 <li>
-                                    <a href="#">All Books</a>
+                                    <a href="/books">All Books</a>
                                 </li>
                                 <li>
                                     <a href="#">Recently added Books</a>
@@ -107,6 +132,18 @@
                                     <a href="#">Popular Genres</a>
                                 </li>
                             </ul>
+
+                            @if (! @Auth::check())
+                                <div class="view zoom mt-5">
+                                    <a href="/register">
+                                    <img src="{{ asset('img/call-to-action-signup.jpg')}}" class="img-fluid " alt="">
+                                        <div class="mask flex-center">
+                                            <p class="white-text"></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
+
                         </div>
                         <div class="col-md-4">
                             <h5 class="text-white mt-2 ml-2">
@@ -125,13 +162,6 @@
                             </ul>
                         </div>
                     </div>
-
-
-
-
-
-
-
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -182,16 +212,13 @@
                             </ul>
                         </div>
                     </div>
-
-
-
                 </div>
             </li>
 
         </ul>
 
 
-        <div class="btn-group">
+        <div class="btn-group dropleft">
             @if (Auth::check())
                 <button class="dropdown-toggle nav-link text-white" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:1px solid orange;border-radius:5px;">
 
@@ -200,6 +227,14 @@
                      {{ Auth::user()->name }}
                 </button>
                 <div class="dropdown-menu user-menu">
+                    <div class="user-menu-header">
+
+                            <img src="/{{ @Auth::user()->icon }}" class="rounded-circle" id="user-icon" style="width:80px;height:80px;margin:10px;border:3px solid white;">
+
+                            <div class="text-center text-white mb-2 font-bold">{{ @Auth::user()->name }}&nbsp;{{ @Auth::user()->last_name }} </div>
+
+
+                    </div>
                   <a class="dropdown-item" href="/users/{{ Auth::user()->id }}">My Profile</a>
                   <a class="dropdown-item" href="">My Favorite Books</a>
                   <a class="dropdown-item" href="">My Favorite Authors</a>

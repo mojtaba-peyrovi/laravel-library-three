@@ -1,37 +1,99 @@
-
 @extends('layouts.master')
 @section('styles')
 <style type="text/css">
-    .section-title{
-        font-size: 25px;
-        text-align: center;
-}
-.jumbotron {
-    background: linear-gradient(#006666, #ffff66);
+
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  background: white;
 }
 
-.books-row {
-    background-color: rgb(242, 242, 242);
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+}
+
+/*
+ * Content
+ */
+
+[role="main"] {
+  padding-top: 48px; /* Space for fixed navbar */
+}
+
+
+
+
+.acc-item{
+    margin-bottom: -20px;
+}
+.acc-item ul{
+    margin-left: 70px;
+    margin-top: -20px;
+}
+.index-book-title{
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background:rgb(179, 179, 179);
+    padding:10px 20px;
     border-radius: 5px;
-    padding-bottom: 20px;
-    box-shadow: -11px 19px 38px -18px rgba(122,116,122,0.75);
+    text-align: center;
+    font-family: 'Arial',serif;
 }
-.demo .item{
-    /* margin-bottom: 60px; */
+.book-index-left,
+.book-index-right{
+    border-radius: 6px;
+    box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
 }
-.demo{
-	width: 100%;
+.index-title{
+    font-family: 'Lobster', cursive;
+    font-size: 35px;
 }
-.content-slider li{
-		    text-align: center;
-		    color: #FFF;
-		}
-.content-slider h3 {
-    margin: 0;
-    padding: 70px 0;
-}
-
-
 </style>
 @endsection
 @section('title')
@@ -40,82 +102,81 @@
 @section('content')
     @include('front.partials.nav')
     @include('front.partials.login-notice')
-
     <ol class="breadcrumb blue-grey lighten-5">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item active">Books</li>
     </ol>
-    <div class="container mt-4">
-            @include('flash::message')
-            <!--Jumbotron-->
-                <div class="jumbotron">
-                    <h1 class="h1-reponsive mb-3 blue-text"><strong class="text-white">
-                        <i class="fa fa-book"></i>
-                        Books</strong></h1>
-                    <p class="lead text-white">
-                        Find books you like here.
-                    </p>
-                    <hr class="my-4">
-                    <!-- search form -->
-                    <form class="form-inline d-flex justify-content-center">
-                      <label class="sr-only" for="inlineFormInputName2">Name</label>
-                      <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe">
+        @include('flash::message')
+            <div class="container-fluid" style="margin-top:-16px;">
+              <div class="row">
+                <nav class="col-md-2 d-none d-md-block sidebar book-index-left bg-grey-lighter">
+                  <div class="sidebar-sticky">
+                      <div class="index-book-title">Filters</div>
+                      <hr>
+                      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-2 text-muted">
+                        Read Each Month
+                      </h6>
 
-                      <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                      <div class="input-group mb-2 mr-sm-2">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">@</div>
+                        <div class="accordion" id="accordionExample">
+                            <div class="acc-item">
+                                <button class="btn btn-link d-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  2018
+                                </button>
+                                <ul id="collapseOne" class="collapse show list-unstyled" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <li>January</li>
+                                    <li>February</li>
+                                    <li>March</li>
+                                </ul>
+                            </div>
+                            <div class="acc-item">
+                                <button class="btn btn-link collapsed d-block" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                 2017
+                                </button>
+                                <ul id="collapseTwo" class="collapse list-unstyled" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <li>January</li>
+                                    <li>February</li>
+                                    <li>March</li>
+                                </ul>
+                            </div>
+                            <div class="acc-item">
+                                <button class="btn btn-link collapsed  d-block" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  2016
+                                </button>
+                                <ul id="collapseThree" class="collapse list-unstyled" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <li>January</li>
+                                    <li>February</li>
+                                    <li>March</li>
+                                </ul>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
-                      </div>
+                        <hr>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-2 mt-3 text-muted">
+                         Genres
+                        </h6>
+                  </div>
+                </nav>
 
-                      <div class="form-check mb-2 mr-sm-2">
-                        <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                        <label class="form-check-label" for="inlineFormCheck">
-                          Remember me
-                        </label>
-                      </div>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                  <div class="flex-wrap flex-md-nowrap pb-2 mb-3 border-bottom">
+                    <h3 class="index-title">Books</h3>
+                    <small class="text-muted">{{ $books->total() }} results found</small>
+                  </div>
 
-                      <button type="submit" class="btn btn-warning btn-sm mb-2">Search</button>
-                    </form>
-                </div>
-            <!--Jumbotron-->
-            <a href="books/create" class="text-orange font-bold d-flex justify-content-end" target="_blank">
-                New Book
-            </a>
-            <!-- recently added -->
-            <div class="section-title">Recently Added</div>
-            <div class="row books-row">
-            @foreach ($books as $book)
-                @if ($book->is_new() == True)
-                    @include('front.partials.book-card')
-                @endif
-            @endforeach
-            </div>  <!-- end of recently added-->
-
-            @include('front.partials.scroller')
+                  <div class="row">
+                      @foreach ($books as $book)
+                          @include('front.partials.book-card')
+                      @endforeach
+                  </div>
+                  {{ $books->links() }}
+                </main>
+              </div>
+            </div>
 
 
-        <!-- all books -->
-        <div class="mt-4 section-title">All Books</div>
-        <div class="row books-row">
-            @foreach ($books as $book)
-                @include('front.partials.book-card')
-            @endforeach
-        </div>  <!-- end of all books-->
-        <span class="d-flex justify-content-center mt-3">
-            {{ $books->links() }}
-        </span>
-    </div>
 
 
 @endsection
 @section('script')
-    <script>
-        $('div.alert').not('.alert-important').delay(2000).fadeOut(450);
-    </script>
 
-    <!-- slider js -->
-    <script src="{{ asset('js/lightslider.js') }}" charset="utf-8"></script>
 
 @endsection
