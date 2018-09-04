@@ -15,13 +15,13 @@
     .books-menu-item li:hover {
         background-color: #00cccc;
     }
- .books-menu-item li{
+    .books-menu-item li{
      margin-right: 5px;
      margin-left: 5px;
- }
+    }
     .dropdown-primary {
         background-color:#006666;
-        width:1000px;
+        width:700px;
         padding: 10px;
     }
 
@@ -62,7 +62,7 @@
         flex-direction: column;
         margin-top: -10px;
         margin-right: -1px;
-        border-radius: 5px;
+        border-radius: 5px 5px 0 0;
         background: #ff8800;
     }
 
@@ -97,7 +97,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                     <div class="row">
                         <div class="col-md-4">
-                            <h5 class="text-white mt-2 ml-2">Books</h5>
+                            <h5 class="mt-2 ml-2">Books</h5>
                             <ul class="list-unstyled books-menu-item">
                                 <li>
                                     <a href="/books">All Books</a>

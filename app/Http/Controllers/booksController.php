@@ -350,70 +350,20 @@ class booksController extends Controller
         public function getUnFavorite($book)
         {
 
-                $book_check = Favorite::where('book_id','=',$book)
-                                       ->where('user_id','=',auth()->user()->id)->first();
-                // dd($book_check['id']);
+            $book_check = Favorite::where('book_id','=',$book)
+                                   ->where('user_id','=',auth()->user()->id)->first();            
 
-                if (! $book_check == null) {
-                    $fav = Favorite::find($book_check['id']);
-                    $fav->delete();
-                    flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Unfavorited!')->success();
-                    return back();
-                }else{
+            if (! $book_check == null) {
+                $fav = Favorite::find($book_check['id']);
+                $fav->delete();
+                flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Unfavorited!')->success();
+                return back();
+            }else{
 
-                    return back();
-                }
-
-        }
-        public function addRead(Book $book, Request $request)
-        {
-            $this->validate($request,[
-                'read_date' => 'required'
-            ]);
-            $read = Read::create([
-            'user_id' => auth()->user()->id,
-            'book_id' => $book->id,
-            'read_date' => Carbon::parse(request('read_date'))
-            ]);
-            flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Date Added!')->success();
-
-            return back();
+                return back();
+            }
         }
 
-        public function addQuote(Book $book,Request $request)
-        {
-            $this->validate($request,[
-                'quote' => 'required'
-            ]);
-
-            $quote  = Quote::create([
-                'user_id' => auth()->user()->id,
-                'book_id' => $book->id,
-                'quote' => $request->input('quote'),
-                'footer' => $request->input('footer'),
-                'cite' => $request->input('cite')
-            ]);
-            flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Quote Added!')->success();
-
-            return back();
-        }
-
-        public function removeQuote(Book $book, Quote $quote)
-        {
-            $quote->delete();
-
-            flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Quote Removed!')->success();
-
-            return back();
-        }
-        public function removeRead(Book $book, Read $read)
-        {
-            $read->delete();
-
-            flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Read Date Removed!')->success();
-
-            return back();
-        }
 
 
     }

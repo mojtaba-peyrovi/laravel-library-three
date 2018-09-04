@@ -48,12 +48,12 @@
         <li class="breadcrumb-item active">Edit</li>
     </ol>
     <div class="container mt-4">
-        <form class="" action="{{ action('booksController@update', $id) }}" method="post" enctype="multipart/form-data">
+        <form class="" action="{{ action('booksController@update', $book->id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="PATCH">
                  <div class="row">
                      <div class="col-md-3 offse-md-1 edit-left bg-grey-lighter p-4 d-flex justify-content-center flex-column">
-                        <img src="/{{ $book->photo }}" class="book-img" id="book-img">
+                        <img src="/storage/img/books/{{ $book->photo }}" class="book-img" id="book-img">
                         <div class="form-group" style="margin-top:-30px;">
 
                             <div class="mt-5">

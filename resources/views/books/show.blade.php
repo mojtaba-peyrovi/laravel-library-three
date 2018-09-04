@@ -121,7 +121,7 @@
                <!-- book image -->
                 <div class="photo-container">
                      @include('flash::message')
-                    <img src="/{{ $book->photo }}" alt="" class="book-img">
+                    <img src="/storage/img/books/{{ $book->photo }}" alt="" class="book-img">
                 </div>
                 <!-- end of book image -->
 

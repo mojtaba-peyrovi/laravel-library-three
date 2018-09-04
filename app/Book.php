@@ -88,39 +88,64 @@ class Book extends Model
     {
         $all_reviews = $this->reviews()->count('rate');
         $five_reviews = $this->reviews()->where('rate','5')->count('rate');
-        $five_percentage = round(($five_reviews / $all_reviews)* 100, 1);
+
+        if ($all_reviews == 0) {
+            $five_percentage = round(($five_reviews)* 100, 1);
+        }else {
+            $five_percentage = round(($five_reviews / $all_reviews)* 100, 1);
+        }
+
         return $five_percentage;
     }
     public function four_star_percent()
     {
         $all_reviews = $this->reviews()->count('rate');
         $four_reviews = $this->reviews()->where('rate','4')->count('rate');
-        $four_percentage = round(($four_reviews / $all_reviews)* 100, 1);
+
+        if ($all_reviews == 0) {
+            $four_percentage = round(($four_reviews)* 100, 1);
+        } else {
+            $four_percentage = round(($four_reviews / $all_reviews)* 100, 1);
+        }
+
         return $four_percentage;
     }
     public function three_star_percent()
     {
         $all_reviews = $this->reviews()->count('rate');
         $three_reviews = $this->reviews()->where('rate','3')->count('rate');
-        $three_percentage = round(($three_reviews / $all_reviews)* 100, 1);
+        if ($all_reviews == 0) {
+            $three_percentage = round(($three_reviews)* 100, 1);
+        } else {
+            $three_percentage = round(($three_reviews / $all_reviews)* 100, 1);
+        }
+
         return $three_percentage;
     }
     public function two_star_percent()
     {
         $all_reviews = $this->reviews()->count('rate');
         $two_reviews = $this->reviews()->where('rate','2')->count('rate');
-        $two_percentage = round(($two_reviews / $all_reviews)* 100, 1);
+        if ($all_reviews == 0) {
+            $two_percentage = round(($two_reviews)* 100, 1);
+        } else {
+            $two_percentage = round(($two_reviews / $all_reviews)* 100, 1);
+        }
+
         return $two_percentage;
     }
     public function one_star_percent()
     {
         $all_reviews = $this->reviews()->count('rate');
         $one_reviews = $this->reviews()->where('rate','1')->count('rate');
-        $one_percentage = round(($one_reviews / $all_reviews)* 100, 1);
+        if ($all_reviews == 0) {
+            $one_percentage = round(($one_reviews)* 100, 1);
+        } else {
+            $one_percentage = round(($one_reviews / $all_reviews)* 100, 1);
+        }
         return $one_percentage;
     }
 
-    
 
 
 }

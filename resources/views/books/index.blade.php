@@ -94,6 +94,25 @@
     font-family: 'Lobster', cursive;
     font-size: 35px;
 }
+.pagination {
+    margin-left: 30%;
+    margin-top: 20px;
+}
+#search-name {
+    width:400px;
+}
+#search-year {
+    width: 150px;
+}
+#search-author {
+    width:350px;
+}
+.search-form {
+    margin-top: -40px;
+}
+.genres-filter li {
+    margin-left: 60px;
+}
 </style>
 @endsection
 @section('title')
@@ -153,21 +172,73 @@
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-2 mt-3 text-muted">
                          Genres
                         </h6>
+                        <ul class="list-unstyled genres-filter">
+                            @foreach ($types as $type)
+                                <li>{{ $type->title }}</li>
+                            @endforeach
+                        </ul>
+                        <hr>
+
                   </div>
                 </nav>
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                    <div class="row d-flex justify-content-center">
+
+                        <!-- search form -->
+                        <form class="form-inline search-form" method="post" action="">
+                            {{ csrf_field() }}
+                          <label class="sr-only" for="search-name">Name</label>
+                          <input type="text" class="form-control mb-2 mr-sm-2" id="search-name" placeholder="Book Name" name="name">
+
+                          <label class="sr-only" for="search-year">Year</label>
+                          <div class="input-group mb-2 mr-sm-2">
+                            <input type="text" class="form-control" id="search-year" placeholder="Book Year" name="year">
+                          </div>
+
+                          <label class="sr-only" for="search-author">Author</label>
+                          <div class="input-group mb-2 mr-sm-2">
+                            <input type="text" class="form-control" id="search-author" placeholder="Book Author" name="author">
+                          </div>
+
+                          <button type="submit" class="btn btn-success btn-sm mb-3">Submit</button>
+                      </form> <!-- end of searh form -->
+
+                    </div>
                   <div class="flex-wrap flex-md-nowrap pb-2 mb-3 border-bottom">
-                    <h3 class="index-title">Books</h3>
-                    <small class="text-muted">{{ $books->total() }} results found</small>
+                      <div class="d-flex justify-content-between">
+
+                          <h3 class="index-title ml-5 mt-3">Books</h3>
+
+                          <div class="dropdown sort-button mr-5 mt-2">
+                              <a class="btn btn-lime btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort by
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Stars</a>
+                                <a class="dropdown-item" href="#">Popularity</a>
+                                <a class="dropdown-item" href="#">Adding Date</a>
+                                <a class="dropdown-item" href="#">Reading Date</a>
+                              </div>
+                          </div>
+                      </div>
+                      <small class="text-muted ml-5">
+                          <span class="font-bold">
+                            {{ $books->total() }}
+                          </span>
+                          results found</small>
                   </div>
 
                   <div class="row">
                       @foreach ($books as $book)
                           @include('front.partials.book-card')
                       @endforeach
+
+                      <div class="pagination">
+                          {{ $books->links() }}
+                      </div>
                   </div>
-                  {{ $books->links() }}
+
                 </main>
               </div>
             </div>
@@ -177,6 +248,11 @@
 
 @endsection
 @section('script')
+    <script>
+        $('div.alert').not('.alert-important').delay(2000).fadeOut(450);
+    </script>
 
+    <!-- slider js -->
+    <script src="{{ asset('js/lightslider.js') }}" charset="utf-8"></script>
 
 @endsection

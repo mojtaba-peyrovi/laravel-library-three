@@ -51,7 +51,7 @@
     <hr>
     <div class="popularity">
         Popularity
-        <span>( %{{ $popularity }} )</span>
+        <span>({{ $popularity }}% )</span>
     </div>
     <span class="hidden" id="popularity">{{ $popularity }}</span>
     <canvas id="pie-chart" width="400" height="400"></canvas>

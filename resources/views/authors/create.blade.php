@@ -37,8 +37,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                          <label for="birth_country">Birth Country: </label>
-                          <input type="text" class="form-control" name="birth_country">
+                          @include('front.partials.countries')
                         </div>
                     </div>
                     <div class="col-md-6">

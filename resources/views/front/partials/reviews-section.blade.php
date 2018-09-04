@@ -27,7 +27,7 @@
                 <span class="about-book-title">
                     Reviews
                 </span>
-                <span class="float-right"style="font-weight:500;">
+                <span class="float-right"style="font-weight:400;">
                     <a href="#">
                         See all reviews
                     </a>
