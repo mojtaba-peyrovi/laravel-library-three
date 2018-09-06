@@ -1,42 +1,49 @@
+@extends('layouts.master')
+@section('styles')
+<style type="text/css">
 
-<style>
-    .review-form{list-style-type:none; cursor:pointer; -moz-border-radius:0 10px 0 10px;margin:2px; padding:5px 5px 5px 5px;}
-    .review-form-toggle div{cursor: auto; display: none; font-size: 13px; padding: 5px 0 5px 20px; text-decoration: none; }
-    .review-form-toggle div a{color:#000000; font-weight:bold;}
-    .review-form div:hover{text-decoration:none !important;}
-    .review-form:before {content: "+"; padding:10px 10px 10px 0; color:green; font-weight:bold;}
-    .review-form.active:before {content: "-"; padding:10px 10px 10px 0; color:green; font-weight:bold;}
-    #toggle{width:100%; margin:0 auto;}
-
-    .progress-bar {
-        margin-bottom: 10px;
-        height:30px;
+    .reviews {
+        border-radius: 6px;
+        box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
+    }
+    .star-on,
+    .star-off {
+        width: 13px;
+        height: 13px;
+        margin-top: -20px;
     }
 
+    .review-section-title h3{
+        font-family: 'Lobster', cursive;
+        font-size: 35px;
+    }
 </style>
+@endsection
+@section('title')
+    Books
+@endsection
+@section('content')
+    @include('front.partials.nav')
+    @include('front.partials.login-notice')
 
-
-
-<!-- reviews row -->
-
-
-@if ($book->reviews()->count())
-    <div class="row reviews-section" id="reviews-section">
-        @if ($book->reviews()->count())
-            <div class="col-md-12 bg-grey-lighter related-books mt-4 p-3">
-                <span class="about-book-title">
-                    Reviews
-                </span>
-                <span class="float-right"style="font-weight:400;">
-                    <a href="/books/{{ $book->id }}/reviews">
-                        See all reviews
+    <div class="container mt-4">
+        <div class="reviews bg-grey-lighter p-4">
+            <div class="review-section-title">
+                <h3 class="text-center">{{ $book->title }}</h3>
+                <h6 class="text-center">by
+                    <a href="/authors/{{ $book->author->id }}">
+                        {{ $book->author->fullname() }}
                     </a>
-                </span>
+                </h6>
+                <h6 class="">There are {{ $review_counts }} reviews for
+                    <a href="/books/{{ $book->id }}">
+                        <strong>"{{ $book->title }}"</strong>
+                    </a>
+
+                </h6>
+
+                @foreach ($reviews as $review)
                 <hr>
-
-
-
-                @foreach ($book->reviews->take(5) as $review)
                 <div class="row">
                     <div class="col-md-2 text-center mt-2">
                         <!-- rating stars -->
@@ -99,31 +106,21 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="row">
-                    <!-- accordion -->
-                    <div id="toggle" style="margin-bottom:-20px;margin-left:150px;" class="col-md-10">
-                        <ul class="review-form-toggle">
-                            <li class="review-form">New Review</li>
-                            <div>
-                                Please write your review here
-                                <form class="" action="index.html" method="post">
-                                    <select class="form-control" id="rate" name="rate">
-                                        @for ($i=0; $i < 6; $i++)
-                                            <option value="{{ $i}}">{{ $i }}</option>
-                                        @endfor
-                                    </select>
-                                    <input type="text" class="form-control" name="review_title" placeholder="Review Title">
-                                    <textarea class="form-control mt-3" name="review_body" rows="8" cols="80" placeholder="Review"></textarea>
-                                    <button type="submit" class="btn btn-sm btn-primary float-right mb-3" style="margin-right:-2px;">Submit</button>
-                                </form>
-
-                            </div>
-                        </ul>
-                    </div> <!--end of accordion-->
-                </div>
             </div>
-        @endif
-    </div> <!-- end of reviews row -->
-@else
-    <a href="#">add a review</a>
-@endif
+            <div style="margin-left:40%;">
+                {{ $reviews->links() }}
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+@endsection

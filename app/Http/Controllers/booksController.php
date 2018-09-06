@@ -351,7 +351,7 @@ class booksController extends Controller
         {
 
             $book_check = Favorite::where('book_id','=',$book)
-                                   ->where('user_id','=',auth()->user()->id)->first();            
+                                   ->where('user_id','=',auth()->user()->id)->first();
 
             if (! $book_check == null) {
                 $fav = Favorite::find($book_check['id']);

@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+    Register
+@endsection
 @section('content')
     @include('front.partials.nav')
 <div class="container mt-5">

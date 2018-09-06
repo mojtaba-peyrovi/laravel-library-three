@@ -61,7 +61,7 @@
         justify-content: center;
         flex-direction: column;
         margin-top: -10px;
-        margin-right: -1px;
+        margin-right: 1px;        
         border-radius: 5px 5px 0 0;
         background: #ff8800;
     }

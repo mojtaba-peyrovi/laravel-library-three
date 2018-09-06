@@ -124,11 +124,12 @@
                     <img src="/storage/img/books/{{ $book->photo }}" alt="" class="book-img">
                 </div>
                 <!-- end of book image -->
+                <div class="reviews-form">
 
+                </div>
                 <div class="book-history">
                     <!-- read dates -->
                     @if(Auth::check())
-
                         <ul class="reads-list">
                             <li class="mt-4 about-book-title" style="margin-left: -40px;"  id="reads">
                                 Read Dates
@@ -162,7 +163,6 @@
                             @include('front.partials.errors')
                         </ul><!-- end of read dates -->
                    @endif
-
                 </div>
 
                 @include('front.partials.book-show-insights')
@@ -288,6 +288,8 @@
                 @endif
 
 
+
+
             </div> <!-- end of right section-->
 
         </div> <!-- end of first row -->
@@ -371,5 +373,6 @@
         }
     });
     </script>
+
 
 @endsection

@@ -38,26 +38,22 @@ Route::post('/authors/{author}/unfavorited','AuthorsController@getUnFavorite')->
 Route::get('/home', 'HomeController@index')->name('home');
 
 //add read date
-Route::post('/books/{book}/add-read', 'booksController@addRead')->name('add-read');
+Route::post('/books/{book}/add-read', 'ReadController@addRead')->name('add-read');
 //remove read date
-Route::delete('/books/{book}/reads/{read}/remove','booksController@removeRead')->name('remove-read');
+Route::delete('/books/{book}/reads/{read}/remove','ReadController@removeRead')->name('remove-read');
 //add quote
-Route::post('/books/{book}/add-quote', 'booksController@addQuote')->name('add-quote');
+Route::post('/books/{book}/add-quote', 'QuoteController@addQuote')->name('add-quote');
 //remove quotes
-Route::delete('/books/{book}/quotes/{quote}/remove','booksController@removeQuote')->name('remove-quote');
+Route::delete('/books/{book}/quotes/{quote}/remove','QuoteController@removeQuote')->name('remove-quote');
+// add a review
+Route::post('/books/{book}/add-review', 'reviewController@addReview')->name('add-review');
+
+// show reviews of a books
+Route::get('/books/{book}/reviews','reviewController@index')->name('all-reviews');
 
 // set profile image
 Route::patch('/users/{user}/edit','usersController@update');
-// Route::get('/authors', 'AuthorsController@index')->name('authors-index');
-// Route::get('/authors/{author}', 'AuthorsController@show')->name('authors-show');
-// Route::get('/author/create', 'AuthorsController@create')->name('authors-create');
-// Route::post('/authors', 'AuthorsController@store');
 
-// Route::get('/types', 'TypeController@index');
-// Route::get('/type/create', 'TypeController@create');
-// Route::post('/types', 'TypeController@store');
-// Route::get('/types/{type}/edit', 'TypeController@edit')->name('type-edit');
-// Route::get('/types/{type}', 'TypeController@show');
 
 Route::resource('types', 'TypeController');
 

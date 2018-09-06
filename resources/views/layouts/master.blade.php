@@ -29,11 +29,10 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/css/mdb.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" >
-    <!-- progress bar -->
-    <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
+
     <!-- slider css -->
     <link rel="stylesheet" href="{{ asset('css/lightslider.css') }}">
-
+    
     <!-- tinyMCE -->
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=mafple32967qfow7fwcr9hbjz1gyj9jmi02aq0ke5pflv3xf"></script>
 
@@ -93,7 +92,6 @@
         });
       });
     </script>
-
 
     </head>
   <body>
