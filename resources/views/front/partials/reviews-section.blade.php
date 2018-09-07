@@ -36,7 +36,7 @@
 
 
 
-                @foreach ($book->reviews->take(5) as $review)
+                @foreach ($book->reviews->sortbyDesc('created_at')->take(3) as $review)
                 <div class="row">
                     <div class="col-md-2 text-center mt-2">
                         <!-- rating stars -->
@@ -56,7 +56,7 @@
                             <a href="/users/{{ $review->user['id'] }}">{{ $review->user['name'] }}</a>
                         </div>
                         <div style="font-size:14px;margin-top:5px;">
-                            {{ $book->created_at->format('Y-m-d') }}
+                            {{ $review->created_at->format('Y-m-d') }}
                         </div>
                     </div>
                     <div class="col-md-10">
@@ -106,7 +106,8 @@
                             <li class="review-form">New Review</li>
                             <div>
                                 Please write your review here
-                                <form class="" action="index.html" method="post">
+                                <form class="" action="{{ route('add-review', $book->id) }}" method="post">
+                                    {{ csrf_field() }}
                                     <select class="form-control" id="rate" name="rate">
                                         @for ($i=0; $i < 6; $i++)
                                             <option value="{{ $i}}">{{ $i }}</option>

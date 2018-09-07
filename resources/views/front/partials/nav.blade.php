@@ -61,7 +61,7 @@
         justify-content: center;
         flex-direction: column;
         margin-top: -10px;
-        margin-right: 1px;        
+        margin-right: 1px;
         border-radius: 5px 5px 0 0;
         background: #ff8800;
     }
@@ -97,7 +97,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                     <div class="row">
                         <div class="col-md-4">
-                            <h5 class="mt-2 ml-2">Books</h5>
+                            <h5 class="text-white mt-2 ml-2">Books</h5>
                             <ul class="list-unstyled books-menu-item">
                                 <li>
                                     <a href="/books">All Books</a>
@@ -236,8 +236,15 @@
 
                     </div>
                   <a class="dropdown-item" href="/users/{{ Auth::user()->id }}">My Profile</a>
-                  <a class="dropdown-item" href="">My Favorite Books</a>
-                  <a class="dropdown-item" href="">My Favorite Authors</a>
+                  <a class="dropdown-item" href="">My Favorite Books
+                      ({{ @Auth::user()->favorites()->count() }})
+                  </a>
+                  <a class="dropdown-item" href="">My Favorite Authors
+                      ({{ @Auth::user()->authorFavorites()->count() }})
+                  </a>
+                  <a class="dropdown-item" href="">My Reviews
+                      ({{ @Auth::user()->reviews()->count() }})
+                  </a>
                   <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             @else

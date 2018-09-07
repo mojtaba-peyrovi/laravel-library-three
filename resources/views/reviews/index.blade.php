@@ -42,7 +42,7 @@
 
                 </h6>
 
-                @foreach ($reviews as $review)
+                @foreach ($book->reviews->sortbyDesc('created_at') as $review)
                 <hr>
                 <div class="row">
                     <div class="col-md-2 text-center mt-2">
@@ -63,7 +63,7 @@
                             <a href="/users/{{ $review->user['id'] }}">{{ $review->user['name'] }}</a>
                         </div>
                         <div style="font-size:14px;margin-top:5px;">
-                            {{ $book->created_at->format('Y-m-d') }}
+                            {{ $review->created_at->format('Y-m-d') }}
                         </div>
                     </div>
                     <div class="col-md-10">
@@ -114,7 +114,6 @@
 
         </div>
     </div>
-
 
 
 

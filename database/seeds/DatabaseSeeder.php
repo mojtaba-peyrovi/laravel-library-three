@@ -24,15 +24,15 @@ class DatabaseSeeder extends Seeder
         App\Type::truncate();
 
         // $userQuantity = 20;
-        $authorQuantity = 150;
+        $authorQuantity = 20;
         $authorFavoriteQuantity = 50;
-        $bookQuantity = 100;
-        $favoriteQuantity = 1300;
-        $publisherQuantity = 30;
-        $readQuantity = 1500;
+        $bookQuantity = 20;
+        $favoriteQuantity = 200;
+        $publisherQuantity = 5;
+        $readQuantity = 150;
         $reviewQuantity = 5000;
         $typeQuantity = 15;
-        $quoteQuantity = 500;
+        $quoteQuantity = 200;
 
         // factory(App\User::class, $userQuantity)->create();
         factory(App\Type::class, $typeQuantity)->create();

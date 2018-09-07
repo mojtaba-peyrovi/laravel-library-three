@@ -21,15 +21,16 @@ class reviewController extends Controller
             'rate' => $request->input('rate'),
 
         ]);
-        flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Quote Added!')->success();
+        flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Review Added!')->success();
 
         return back();
     }
 
-    public function index(Book $book)
+    public function allBookReviews(Book $book)
     {
          $review_counts = $book->reviews()->count();
-        $reviews = $book->reviews()->paginate(15);
+        $reviews = $book->reviews()->simplePaginate(2);
+
         return view('reviews.index', compact('reviews','review_counts','book'));
     }
 

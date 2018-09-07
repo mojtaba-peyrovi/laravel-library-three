@@ -49,7 +49,7 @@ Route::delete('/books/{book}/quotes/{quote}/remove','QuoteController@removeQuote
 Route::post('/books/{book}/add-review', 'reviewController@addReview')->name('add-review');
 
 // show reviews of a books
-Route::get('/books/{book}/reviews','reviewController@index')->name('all-reviews');
+Route::get('/books/{book}/reviews','reviewController@allBookReviews')->name('all-reviews');
 
 // set profile image
 Route::patch('/users/{user}/edit','usersController@update');
@@ -57,9 +57,11 @@ Route::patch('/users/{user}/edit','usersController@update');
 
 Route::resource('types', 'TypeController');
 
-// Route::get('/publishers', 'publishersController@index');
+
 Route::resource('/publishers', 'PublisherController');
 
+//show user's favorites
+Route::get('/users/{user}/favorites','FavoriteController@myFavorites');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

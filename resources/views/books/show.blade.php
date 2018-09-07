@@ -19,6 +19,7 @@
    .related-books {
      border-radius: 6px;
      box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
+     height: fit-content;
    }
 
     .about-book-title{
@@ -74,14 +75,8 @@
     .read-card form:first-child {
         margin-bottom: 1px;
     }
-    .book-history ul{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .book-show-left{
-        /* max-height: 1000px; */
-    }
+
+    
     .reviews {
         font-size: 13px;
         margin-top: -5px;
@@ -89,6 +84,45 @@
     }
     .reads-list li{
         list-style: none;
+    }
+
+    .quote-form{
+        margin-left: -40px;
+        list-style-type:none;
+        cursor:pointer;
+        /* -moz-border-radius:0 10px 0 10px; */
+        /* margin:2px; */
+        /* padding:5px 5px 5px 5px; */
+    }
+    .review-form-toggle div{
+        cursor: auto;
+        display: none;
+        font-size: 13px;
+        padding: 5px 0 5px 20px;
+        text-decoration: none;
+    }
+    .quote-form-toggle div a{
+        color:#000000;
+        font-weight:bold;
+    }
+    .quote-form div:hover{
+        text-decoration:none !important;
+    }
+    .quote-form:before {
+        content: "+";
+        padding:10px 10px 10px 0;
+        color:green;
+        font-weight:bold;
+    }
+    .quote-form.active:before {
+        content: "-";
+        padding:10px 10px 10px 0;
+        color:green;
+        font-weight:bold;
+    }
+    #toggle{
+        width:100%;
+        margin:0 auto;
     }
 
 </style>
@@ -134,7 +168,7 @@
                             <li class="mt-4 about-book-title" style="margin-left: -40px;"  id="reads">
                                 Read Dates
                             </li>
-                            @foreach($book->reads as $read)
+                            @foreach($book->reads->sortbyDesc('created_at') as $read)
                                 @if ($read->user_id == Auth::user()['id'])
                                     <li class="card read-card mt-2" style="margin-left: -40px;">
                                         <form class="" action="{{ route('remove-read', [$book->id, $read->id]) }}" method="post">
@@ -252,7 +286,7 @@
                         </div> <!-- end of favorite, delete, edit buttons -->
                         <!-- created by-->
                         <span class="text-muted font-small ">Created by:
-                            <a href="/users/{{ $book->user['id']}}">
+                            <a href="/users/{{ $book->user['id'] }}">
                              {{ $book->user['name'] }}
                              </a>
                          </span>
@@ -264,7 +298,7 @@
                  <!-- about section -->
                     <div>
                         <hr style="margin-top:-2px;">
-                </div> <!-- end of header-->
+                    </div> <!-- end of header-->
 
                     <!-- about book section -->
                     <span class="mb-2 about-book-title mt-3">About the book</span>
@@ -273,6 +307,7 @@
                     <!-- end of about book section -->
                 @if (Auth::check())
                     <!-- quotes section -->
+
                     <hr class="mt-2 mb-2">
                       <div class="mt-4">
                           <span class="mb-2 about-book-title">
