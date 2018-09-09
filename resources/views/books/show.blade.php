@@ -76,7 +76,7 @@
         margin-bottom: 1px;
     }
 
-    
+
     .reviews {
         font-size: 13px;
         margin-top: -5px;
@@ -86,44 +86,7 @@
         list-style: none;
     }
 
-    .quote-form{
-        margin-left: -40px;
-        list-style-type:none;
-        cursor:pointer;
-        /* -moz-border-radius:0 10px 0 10px; */
-        /* margin:2px; */
-        /* padding:5px 5px 5px 5px; */
-    }
-    .review-form-toggle div{
-        cursor: auto;
-        display: none;
-        font-size: 13px;
-        padding: 5px 0 5px 20px;
-        text-decoration: none;
-    }
-    .quote-form-toggle div a{
-        color:#000000;
-        font-weight:bold;
-    }
-    .quote-form div:hover{
-        text-decoration:none !important;
-    }
-    .quote-form:before {
-        content: "+";
-        padding:10px 10px 10px 0;
-        color:green;
-        font-weight:bold;
-    }
-    .quote-form.active:before {
-        content: "-";
-        padding:10px 10px 10px 0;
-        color:green;
-        font-weight:bold;
-    }
-    #toggle{
-        width:100%;
-        margin:0 auto;
-    }
+
 
 </style>
 
@@ -168,13 +131,13 @@
                             <li class="mt-4 about-book-title" style="margin-left: -40px;"  id="reads">
                                 Read Dates
                             </li>
-                            @foreach($book->reads->sortbyDesc('created_at') as $read)
+                            @foreach($book->reads->sortbyDesc('read_date') as $read)
                                 @if ($read->user_id == Auth::user()['id'])
                                     <li class="card read-card mt-2" style="margin-left: -40px;">
                                         <form class="" action="{{ route('remove-read', [$book->id, $read->id]) }}" method="post">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="DELETE">
-                                            {{ $read->read_date }}
+                                            {{ Carbon\Carbon::parse($read->read_date)->format('d F Y')}}
                                             <button type="submit">
                                                 <i class="fa fa-times-circle" aria-hidden="true" style="margin-top:5px; margin-bottom:3px;"></i>
                                             </button>
@@ -198,8 +161,9 @@
                         </ul><!-- end of read dates -->
                    @endif
                 </div>
-
-                @include('front.partials.book-show-insights')
+                @if ($book->reviews()->count())
+                    @include('front.partials.book-show-insights')
+                @endif
             </div>
 
 
@@ -313,11 +277,18 @@
                           <span class="mb-2 about-book-title">
                               {{ @Auth::user()['name'] }}'s Favorite Quotes
                           </span>
-                          @foreach ($book->quotes as $text)
+                          {{-- @foreach ($book->quotes->sortby('created_at') as $text)
                               @if ($text->user['id'] === @Auth::user()['id'])
                                   @include('front.partials.blockquotes')
                               @endif
+                          @endforeach --}}
+
+                          @foreach (@Auth::user()->quotes->sortby('created_at') as $text)
+                              @if ($text->book['id'] === $book['id'])
+                                  @include('front.partials.blockquotes')
+                              @endif
                           @endforeach
+
                           @include('front.partials.add-quote-form')
                       </div><!-- end of quotes section -->
                 @endif

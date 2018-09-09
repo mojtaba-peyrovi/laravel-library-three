@@ -108,12 +108,15 @@
                                 Please write your review here
                                 <form class="" action="{{ route('add-review', $book->id) }}" method="post">
                                     {{ csrf_field() }}
-                                    <select class="form-control" id="rate" name="rate">
-                                        @for ($i=0; $i < 6; $i++)
-                                            <option value="{{ $i}}">{{ $i }}</option>
-                                        @endfor
-                                    </select>
-                                    <input type="text" class="form-control" name="review_title" placeholder="Review Title">
+                                    <div class="d-flex">
+                                        <select class="form-control mr-2" id="rate" name="rate" style="margin-left:-20px;">
+                                            @for ($i=0; $i < 6; $i++)
+                                                <option value="{{ $i}}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                        <input type="text" class="form-control" name="review_title" placeholder="Review Title">
+                                    </div>
+
                                     <textarea class="form-control mt-3" name="review_body" rows="8" cols="80" placeholder="Review"></textarea>
                                     <button type="submit" class="btn btn-sm btn-primary float-right mb-3" style="margin-right:-2px;">Submit</button>
                                 </form>
@@ -126,5 +129,37 @@
         @endif
     </div> <!-- end of reviews row -->
 @else
-    <a href="#">add a review</a>
+    <div class="row reviews-section" id="reviews-section">
+
+            <div class="col-md-12 bg-grey-lighter related-books mt-4 p-3">
+                <span class="about-book-title">
+                    Reviews
+                </span>
+                <!-- accordion -->
+                <div id="toggle" style="margin-bottom:-20px;margin-left:150px;position:relative;top:-25px;" class="col-md-10 float-right">
+                    <ul class="review-form-toggle">
+                        <li class="review-form">Write a Review</li>
+                        <div>
+                            Please write your review here
+                            <form class="" action="{{ route('add-review', $book->id) }}" method="post">
+                                {{ csrf_field() }}
+                                <div class="d-flex">
+                                    <select class="form-control mr-2" id="rate" name="rate" style="margin-left:-20px;">
+                                        @for ($i=0; $i < 6; $i++)
+                                            <option value="{{ $i}}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                    <input type="text" class="form-control" name="review_title" placeholder="Review Title">
+                                </div>
+
+                                <textarea class="form-control mt-3" name="review_body" rows="8" cols="80" placeholder="Review"></textarea>
+                                <button type="submit" class="btn btn-sm btn-primary float-right mb-3" style="margin-right:-2px;">Submit</button>
+                            </form>
+
+                        </div>
+                    </ul>
+                </div> <!--end of accordion-->
+            </div>
+
+    </div> <!-- end of reviews row -->
 @endif

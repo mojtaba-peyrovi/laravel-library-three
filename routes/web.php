@@ -14,13 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('/books', 'booksController@index')->name('books-index');
-// Route::get('/books/{book}', 'booksController@show')->name('books-show');
-// Route::get('/books/{book}/edit', 'booksController@edit')->name('books-edit');
-// Route::get('/book/create', 'booksController@create');
-// Route::post('/books', 'booksController@store');
-// Route::put('/books/{book}', 'booksController@update');
+
 Route::resource('books', 'booksController');
+
 Route::Post('books/create/bulk', 'booksController@uploadBulk');
 Route::resource('authors', 'AuthorsController');
 

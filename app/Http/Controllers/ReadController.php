@@ -12,7 +12,8 @@ class ReadController extends Controller
     public function addRead(Request $request, Book $book)
     {
         $this->validate($request, [
-            'read_date' => 'required'
+            'read_date' => 'required|unique:reads',
+            'book_id' => 'unique:reads'
         ]);
 
         $read = Read::create([
