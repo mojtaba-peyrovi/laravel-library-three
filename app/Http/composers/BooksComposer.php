@@ -20,6 +20,7 @@ class BooksComposer
     {
         $view->with('types', Type::all());
         $view->with('authors', Author::all());
+        $view->with('publishers', Publisher::all());
     }
 
     public function bookIndexComposer($view)

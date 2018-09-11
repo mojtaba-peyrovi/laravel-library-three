@@ -15,6 +15,7 @@ use App\Http\Requests\CsvImportRequest;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\imageController;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Validation\Rule;
 use DB;
 use Validator;
@@ -63,20 +64,20 @@ class booksController extends Controller
      */
     public function store(Request $request, Book $book)
     {
-        //valudation
-        $rules = [
-            'publish_year' => 'required',
-            'read_date' => 'required',
-            'title' => 'required|min:5',
-            'photo' => 'Rule::dimension()->maxwidth(1000)'
-        ];
 
-        $this->validate($request, $rules);
+        // $rules = [
+        //     'publish_year' => 'required',
+        //     'read_date' => 'required',
+        //     'title' => 'required|min:5',
+        //     'photo' => 'Rule::dimension()->maxwidth(1000)'
+        // ];
+        //
+        // $this->validate($request, $rules);
 
        $book->createBook($request, $book);
 
-        flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Book Added!')->success();
 
+        flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Book Added!')->success();
 
         return redirect()->back();
     }
@@ -90,7 +91,8 @@ class booksController extends Controller
     public function show(Book $book)
     {
 
-        $related_books = Book::where('type_id', $book->type_id)->get();
+        $related_books = Book::where('type_id', $book->type_id)
+                            ->where('id', '!=', $book->id)->get();
         $favorites_exist = Favorite::where('book_id','=',$book->id)->
                                      where('user_id','=',auth()->user()['id'])->first();
 

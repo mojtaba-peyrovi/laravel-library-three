@@ -56,7 +56,7 @@
                             <a href="/users/{{ $review->user['id'] }}">{{ $review->user['name'] }}</a>
                         </div>
                         <div style="font-size:14px;margin-top:5px;">
-                            {{ $review->created_at->format('Y-m-d') }}
+                            {{ Carbon\Carbon::parse($review->created_at)->format('d F Y')}}
                         </div>
                     </div>
                     <div class="col-md-10">
@@ -101,9 +101,9 @@
                 @endforeach
                 <div class="row">
                     <!-- accordion -->
-                    <div id="toggle" style="margin-bottom:-20px;margin-left:150px;" class="col-md-10">
+                    <div id="toggle" style="margin-bottom:-20px;" class="col-md-10 col-sm-12">
                         <ul class="review-form-toggle">
-                            <li class="review-form">New Review</li>
+                            <li class="review-form" style="position:relative; left:-50px;">New Review</li>
                             <div>
                                 Please write your review here
                                 <form class="" action="{{ route('add-review', $book->id) }}" method="post">

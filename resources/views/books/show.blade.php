@@ -121,9 +121,7 @@
                     <img src="/storage/img/books/{{ $book->photo }}" alt="" class="book-img">
                 </div>
                 <!-- end of book image -->
-                <div class="reviews-form">
 
-                </div>
                 <div class="book-history">
                     <!-- read dates -->
                     @if(Auth::check())

@@ -32,7 +32,7 @@
 
     <!-- slider css -->
     <link rel="stylesheet" href="{{ asset('css/lightslider.css') }}">
-    
+
     <!-- tinyMCE -->
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=mafple32967qfow7fwcr9hbjz1gyj9jmi02aq0ke5pflv3xf"></script>
 
@@ -48,7 +48,7 @@
             yearRange: "-100:+0"
         });
       });
-     </script>
+     </script>    
      <script>
       tinymce.init({
         selector: '#mytextarea',

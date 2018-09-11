@@ -154,7 +154,7 @@ class Book extends Model
     public function createBook(Request $request)
     {
         //image upload
-       if(Input::hasFile('image'))
+       if($request->hasFile('image'))
        {
            $image = $request->file('image');
            $title = $request->input('title');
@@ -163,10 +163,11 @@ class Book extends Model
            $image_resize = Image::make($image->getRealPath());
            $image_resize->fit(260, 346);
            $image_resize->save(public_path('storage/img/books/' . $filename));
+
        };
 
 
-
+       $filename = 'empty-book.png';
        $book = Book::create([
            'title' => ucwords(request('title')),
            'user_id' => Auth::user()->id,
